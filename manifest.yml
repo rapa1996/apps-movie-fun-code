@@ -1,0 +1,10 @@
+---
+applications:
+- name: moviefun
+  instances: 2
+  random-route: true
+  buildpack: java_buildpack_offline
+  services:
+  - movies-mysql
+  - moviefun-s3
+  - paper-trail

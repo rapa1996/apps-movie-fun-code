@@ -3,6 +3,7 @@ package org.superbiz.moviefun;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.superbiz.moviefun.blobstore.BlobStore;
 import org.superbiz.moviefun.blobstore.S3Store;
 import org.superbiz.moviefun.blobstore.ServiceCredentials;
+
+import javax.sql.DataSource;
 
 @SpringBootApplication
 public class Application {
@@ -27,6 +30,13 @@ public class Application {
     @Bean
     ServiceCredentials serviceCredentials(@Value("${vcap.services}") String vcapServices) {
         return new ServiceCredentials(vcapServices);
+    }
+
+    @Bean
+    public DataSource dataSource(ServiceCredentials serviceCredentials) {
+        MysqlDataSource ds = new MysqlDataSource();
+        ds.setURL(serviceCredentials.getCredential("movies-mysql", "p-mysql", "jdbcUrl"));
+        return ds;
     }
 
     @Bean

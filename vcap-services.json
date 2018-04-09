@@ -1,0 +1,27 @@
+{
+  "aws-s3": [
+    {
+      "credentials": {
+        "access_key_id": "6TMD44HDBLVWF1I6Y4E8",
+        "bucket": "movie-fun-course",
+        "region": "minio",
+        "secret_access_key": "Djda2IxZs89TwBCbInQWQiKydbprzji6XZ/veXPD"
+      },
+      "label": "aws-s3",
+      "name": "moviefun-s3"
+    }
+  ],
+  "p-mysql": [
+    {
+      "credentials": {
+        "jdbcUrl": "jdbc:mysql://localhost:3306/movies?useSSL=false&user=root"
+      },
+      "label": "p-mysql",
+      "name": "movies-mysql",
+      "tags": [
+        "mysql",
+        "relational"
+      ]
+    }
+  ]
+}

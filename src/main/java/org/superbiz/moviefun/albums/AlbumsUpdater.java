@@ -57,6 +57,7 @@ public class AlbumsUpdater {
 
 
     private void createNewAlbums(List<Album> albumsToHave, List<Album> albumsWeHave) {
+        // csv - db -> insert
         Stream<Album> albumsToCreate = albumsToHave
             .stream()
             .filter(album -> albumsWeHave.stream().noneMatch(album::isEquivalent));
@@ -65,6 +66,7 @@ public class AlbumsUpdater {
     }
 
     private void deleteOldAlbums(List<Album> albumsToHave, List<Album> albumsWeHave) {
+        // db - csv -> delete
         Stream<Album> albumsToDelete = albumsWeHave
             .stream()
             .filter(album -> albumsToHave.stream().noneMatch(album::isEquivalent));
@@ -73,6 +75,7 @@ public class AlbumsUpdater {
     }
 
     private void updateExistingAlbums(List<Album> albumsToHave, List<Album> albumsWeHave) {
+        // db == csv -> update id
         Stream<Album> albumsToUpdate = albumsToHave
             .stream()
             .map(album -> addIdToAlbumIfExists(albumsWeHave, album))
